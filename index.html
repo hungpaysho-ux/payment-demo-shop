@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="ezPay 簡單付與藍新金流測試購物網站">
-  <title>安心選物｜金流測試商店</title>
+  <meta name="description" content="ezPay 簡單付正式付款展示網站">
+  <title>安心選物｜ezPay 付款展示商店</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231d4ed8'/%3E%3Cpath d='M18 25h28l-3 24H21z' fill='white'/%3E%3Cpath d='M25 27c0-10 14-10 14 0' fill='none' stroke='white' stroke-width='5'/%3E%3C/svg%3E">
   <style>
     :root{--navy:#10203b;--blue:#1d4ed8;--sky:#eaf2ff;--ink:#172033;--muted:#64748b;--line:#dbe3ef;--white:#fff;--orange:#f59e0b;--danger:#b42318;--shadow:0 18px 45px rgba(15,32,59,.12)}
@@ -20,14 +20,14 @@
   </style>
 </head>
 <body>
-  <header><div class="wrap bar"><div class="brand"><span class="mark">安</span><span>安心選物｜金流測試商店</span></div><button class="cart-btn" id="openCart" aria-label="開啟購物車">購物車 <span class="cart-count" id="cartCount">0</span></button></div></header>
+  <header><div class="wrap bar"><div class="brand"><span class="mark">安</span><span>安心選物｜ezPay 付款展示商店</span></div><button class="cart-btn" id="openCart" aria-label="開啟購物車">購物車 <span class="cart-count" id="cartCount">0</span></button></div></header>
   <main><div class="wrap result-banner" id="resultBanner" role="status"></div>
-    <section class="intro"><div class="wrap intro-box"><div><div class="eyebrow">PAYMENT DEMO STORE</div><h1>選商品，體驗兩種<br>測試金流結帳流程</h1><p>本站僅供 ezPay 簡單付與藍新金流測試環境展示。正式串接前，付款按鈕不會送出交易。</p></div><div class="safe"><b>🔒 安全測試模式</b><span>商店金鑰不會儲存在 GitHub Pages</span></div></div></section>
-    <section class="wrap"><div class="section-head"><div><h2>測試商品</h2><p>選擇商品加入購物車，結帳時再選擇金流。</p></div><p>所有價格均為新台幣</p></div><div class="products" id="products"></div></section>
+    <section class="intro"><div class="wrap intro-box"><div><div class="eyebrow">EZPAY PAYMENT DEMO</div><h1>選商品，體驗 ezPay<br>正式付款流程</h1><p>本站使用 ezPay 簡單付正式環境，送出付款後可能產生實際扣款。</p></div><div class="safe"><b>🔒 安全後端處理</b><span>商店金鑰不會儲存在 GitHub Pages</span></div></div></section>
+    <section class="wrap"><div class="section-head"><div><h2>展示商品</h2><p>選擇商品加入購物車，再使用 ezPay 簡單付結帳。</p></div><p>所有價格均為新台幣</p></div><div class="products" id="products"></div></section>
   </main>
   <div class="drawer" id="drawer" aria-hidden="true"><div class="backdrop" id="backdrop"></div><aside class="panel" aria-label="購物車"><div class="panel-head"><h2>我的購物車</h2><button class="close" id="closeCart" aria-label="關閉購物車">×</button></div><div id="cartList"></div><div class="summary" id="summary"><div class="total"><span>合計</span><span id="total">NT$0</span></div><button class="primary checkout" id="checkout">選擇付款方式</button><p class="notice">實際交易金額會由安全後端重新計算，避免前端金額遭竄改。</p></div></aside></div>
-  <div class="modal" id="payModal" role="dialog" aria-modal="true" aria-labelledby="payTitle"><div class="modal-card"><h2 id="payTitle">選擇付款方式</h2><p>下一階段完成 Cloudflare Workers 後，即可導向兩家測試付款頁。</p><div class="pay-options"><label class="pay-option"><input type="radio" name="payment" value="ezpay" checked><span><b>ezPay 簡單付</b><span>電子支付帳戶／約定連結帳戶／信用卡／TWQR 測試流程</span></span></label><label class="pay-option"><input type="radio" name="payment" value="newebpay"><span><b>藍新金流</b><span>MPG 幕前支付測試流程</span></span></label></div><div class="actions"><button class="secondary" id="cancelPay">返回購物車</button><button class="primary" id="startPay">前往測試付款</button></div><div class="status" id="status">安全後端尚未設定，目前不會送出交易。下一步將建立 Cloudflare Workers。</div></div></div>
-  <footer><div class="wrap">本網站僅供測試與展示，不代表實際商品銷售。請勿輸入真實信用卡資料。</div></footer>
+  <div class="modal" id="payModal" role="dialog" aria-modal="true" aria-labelledby="payTitle"><div class="modal-card"><h2 id="payTitle">確認付款方式</h2><p>本次將導向 ezPay 簡單付正式付款頁，可能產生實際扣款。</p><div class="pay-options"><label class="pay-option"><input type="radio" name="payment" value="ezpay" checked><span><b>ezPay 簡單付</b><span>付款頁將依商店權限顯示電子支付帳戶、約定連結帳戶及信用卡等方式</span></span></label></div><div class="actions"><button class="secondary" id="cancelPay">返回購物車</button><button class="primary" id="startPay">前往正式付款</button></div><div class="status" id="status"></div></div></div>
+  <footer><div class="wrap">本網站用於 ezPay 正式付款功能展示；送出交易前請再次確認商品與金額。</div></footer>
   <script>
     const API_URL='https://payment-demo-api.hungpaysho.workers.dev';
     const products=[
@@ -53,7 +53,7 @@
     $('#openCart').onclick=openCart;$('#closeCart').onclick=closeCart;$('#backdrop').onclick=closeCart;
     $('#checkout').onclick=()=>{closeCart();$('#payModal').classList.add('open');$('#status').classList.remove('show');log('checkout_open',{items:items().map(({id,qty})=>({id,qty}))})};
     $('#cancelPay').onclick=()=>{$('#payModal').classList.remove('open');openCart()};
-    $('#startPay').onclick=async()=>{const provider=document.querySelector('input[name=payment]:checked').value,status=$('#status'),button=$('#startPay');status.classList.remove('show');if(provider==='newebpay'){status.textContent='藍新測試商店資料尚未設定，請先使用 ezPay 簡單付。';status.classList.add('show');log('payment_provider_not_configured',{provider});return}button.disabled=true;button.textContent='正在建立測試訂單…';try{const response=await fetch(`${API_URL}/api/checkout`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({provider,items:items().map(p=>({id:p.id,quantity:p.qty}))})});const result=await response.json();if(!response.ok||!result.ok)throw new Error(result.message||result.error||'建立訂單失敗');log('payment_redirect',{provider,orderNo:result.orderNo,amount:result.amount,requestId:result.requestId});location.href=result.paymentUrl}catch(error){status.textContent=`無法建立測試訂單：${error.message}`;status.classList.add('show');log('payment_create_error',{provider,message:error.message})}finally{button.disabled=false;button.textContent='前往測試付款'}};
+    $('#startPay').onclick=async()=>{const provider=document.querySelector('input[name=payment]:checked').value,status=$('#status'),button=$('#startPay');status.classList.remove('show');if(provider==='newebpay'){status.textContent='藍新金流尚未設定，目前請使用 ezPay 簡單付。';status.classList.add('show');log('payment_provider_not_configured',{provider});return}button.disabled=true;button.textContent='正在建立正式訂單…';try{const response=await fetch(`${API_URL}/api/checkout`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({provider,items:items().map(p=>({id:p.id,quantity:p.qty}))})});const result=await response.json();if(!response.ok||!result.ok)throw new Error(result.message||result.error||'建立訂單失敗');if(!result.gatewayUrl||!result.fields)throw new Error('付款表單資料不完整');log('payment_redirect',{provider,orderNo:result.orderNo,amount:result.amount,requestId:result.requestId});const payForm=document.createElement('form');payForm.method='POST';payForm.action=result.gatewayUrl;for(const [name,value] of Object.entries(result.fields)){const input=document.createElement('input');input.type='hidden';input.name=name;input.value=value;payForm.appendChild(input)}document.body.appendChild(payForm);payForm.submit()}catch(error){status.textContent=`無法建立正式訂單：${error.message}`;status.classList.add('show');log('payment_create_error',{provider,message:error.message});button.disabled=false;button.textContent='前往正式付款'}};
     function showReturnResult(){const query=new URLSearchParams(location.search),payment=query.get('payment'),orderNo=query.get('orderNo');if(!payment)return;const banner=$('#resultBanner');banner.classList.add('show');if(payment==='success'){banner.textContent=`付款結果已回傳：訂單 ${orderNo||''} 付款成功。`;cart={};save()}else{banner.classList.add('pending');banner.textContent=`付款結果尚未確認：訂單 ${orderNo||''}，請以背景通知與交易查詢結果為準。`}history.replaceState({},'',location.pathname)}
     window.add=add;window.change=change;window.removeItem=removeItem;renderProducts();renderCart();showReturnResult();
   </script>
